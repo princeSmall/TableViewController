@@ -13,12 +13,31 @@ class TongTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
+        //重载数据
+        tableView.reloadData()
+        //动画延时
+        let diff = 0.05
+        //获取tableView的高
+        let tableHeight = self.tableView.bounds.size.height
+        //获取所有单元格
+        let cells:[UITableViewCell] = self.tableView.visibleCells as [UITableViewCell]
+        for cell in cells {
+            cell.transform = CGAffineTransform(translationX: 0,y: tableHeight)
+        }
+        //遍历cell，顺序执行上移的动画
+        for i in 0..<cells.count {
+            let cell:UITableViewCell = cells[i] as UITableViewCell
+            let delay = diff * Double(i)
+            //执行动画
+            UIView.animate(withDuration: 1, delay: delay, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                //重新回到原始位置
+                cell.transform =  CGAffineTransform(translationX: 0,y: 0)
+            }, completion: nil)
+            
+            
+        }
+        
+        }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -26,26 +45,24 @@ class TongTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 20
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = "大标题:\(indexPath.row)"
+        cell.detailTextLabel?.text = "子标题:\(indexPath.row)"
         // Configure the cell...
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
