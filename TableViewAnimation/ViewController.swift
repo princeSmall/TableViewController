@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  TableViewAnimation
 //
-//  Created by tongle on 2017/6/8.
-//  Copyright © 2017年 tong. All rights reserved.
+//  Created by iOS on 2017/6/8.
+//  Copyright © 2017年 iOS. All rights reserved.
 //
 
 import UIKit
